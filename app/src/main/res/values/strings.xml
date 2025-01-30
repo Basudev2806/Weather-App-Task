@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="temperature_format">%.1f°C</string>
+    <string name="humidity_format">Humidity: %d%%</string>
+    <string name="wind_speed_format">Wind: %.2f km/h</string>
+    <string name="min_max_temp_format">Max Temp: %.2f° \nMin Temp: %.2f°</string>
+    <string name="min_max_temp_forecast_format">%.1f° / %.1f°</string>
+</resources>
