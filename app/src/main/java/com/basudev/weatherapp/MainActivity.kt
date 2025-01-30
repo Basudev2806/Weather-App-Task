@@ -120,7 +120,6 @@ class MainActivity : AppCompatActivity() {
                 tvCondition.text = it.condition
                 tvHumidity.text = getString(R.string.humidity_format, it.humidity)
                 tvWindSpeed.text = getString(R.string.wind_speed_format, it.windSpeed)
-                Toast.makeText(this, "${it.maxTemp} ${it.minTemp}", Toast.LENGTH_SHORT).show()
                 tvMinMaxTemp.text = getString(R.string.min_max_temp_format, it.maxTemp, it.minTemp)
 
                 Glide.with(this)
@@ -145,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isNotBlank()) {
-                    viewModel.searchLocations(query)
+                    viewModel.searchLocations(this@MainActivity, query)
                     searchView.clearFocus()
                 }
                 return true
@@ -153,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.length > 5) {
-                    viewModel.searchLocations(newText)
+                    viewModel.searchLocations(this@MainActivity,newText)
                 }
                 return true
             }
@@ -217,7 +216,7 @@ class MainActivity : AppCompatActivity() {
             val lat = intent.getDoubleExtra("lat", 0.0)
             val lon = intent.getDoubleExtra("lon", 0.0)
             if (lat != 0.0 && lon != 0.0) {
-                viewModel.updateLocation(lat, lon)
+                viewModel.updateLocation(this@MainActivity, lat, lon)
             }
         }
     }
@@ -233,7 +232,7 @@ class MainActivity : AppCompatActivity() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     // Send the location to ViewModel or use directly
-                    viewModel.updateLocation(it.latitude, it.longitude)
+                    viewModel.updateLocation(this@MainActivity, it.latitude, it.longitude)
                 }
             }
         }

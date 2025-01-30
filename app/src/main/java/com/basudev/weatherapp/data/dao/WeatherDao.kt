@@ -12,12 +12,12 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrent(weather: CurrentWeather)
 
-    @Query("SELECT * FROM CurrentWeather WHERE city = :city")
-    suspend fun getCurrentWeather(city: String): CurrentWeather?
+    @Query("SELECT * FROM CurrentWeather ORDER BY id DESC LIMIT 1")
+    suspend fun getCurrentWeather(): CurrentWeather?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertForecast(forecasts: List<Forecast>)
 
-    @Query("SELECT * FROM Forecast WHERE city = :city ORDER BY date ASC")
-    suspend fun getForecast(city: String): List<Forecast>
+    @Query("SELECT * FROM Forecast ORDER BY id DESC LIMIT 1")
+    suspend fun getForecast(): List<Forecast>
 }

@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class CurrentWeather(
-    @PrimaryKey val city: String,
+    val city: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val temperature: Double,
     val minTemp: Double,
     val maxTemp: Double,

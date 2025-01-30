@@ -5,6 +5,7 @@ import com.basudev.weatherapp.data.entity.Forecast
 import com.basudev.weatherapp.data.local.WeatherDatabase
 import com.basudev.weatherapp.data.model.ForecastItem
 import com.basudev.weatherapp.data.model.LocationSearchResult
+import com.basudev.weatherapp.data.model.Weather
 import com.basudev.weatherapp.data.remote.WeatherApiService
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -65,5 +66,15 @@ class WeatherRepository(
                 icon = items.first().weather.first().icon
             )
         }
+    }
+
+    // Get weather data from the database
+    suspend fun getWeatherDataFromDb(): CurrentWeather? {
+        return db.weatherDao().getCurrentWeather()
+    }
+
+    // Get forecast data from the database
+    suspend fun getForecastDataFromDb(): List<Forecast>? {
+        return db.weatherDao().getForecast()
     }
 }
